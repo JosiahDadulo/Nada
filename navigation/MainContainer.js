@@ -1,5 +1,4 @@
 import * as React from 'react';
-
 import {NavigationContainer, TabActions} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -8,11 +7,13 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import ProfilesScreen from './screens/Profiles';
 import LikesScreen from './screens/Likes';
 import PersonalScreen from './screens/Personal';
+import ChatScreen from './screens/Chat';
 
 //Screen Names
 const profilesName = 'People';
 const likesName = 'Reactions';
 const personalName = 'Personal Profile';
+const chatName = 'Chat'
 
 const Tab = createBottomTabNavigator();
 
@@ -32,15 +33,18 @@ export default function MainContainer(){
                         iconName = focused ? 'heart' : 'heart-outline'
                     } else if(rn == personalName){
                         iconName = focused ? 'person-circle' : 'person-circle-outline'
+                    } else if(rn == chatName){
+                        iconName = focused ? 'people' : 'people-outline'
                     }
 
-                    return <Ionicons name={iconName} size={size} color={color}/>
+                    return <Ionicons name={iconName} size={size} color={"blue"}/>
                 },
             })}>
             
             <Tab.Screen name={profilesName} component={ProfilesScreen}/>
             <Tab.Screen name={likesName} component={LikesScreen}/>
-            <Tab.Screen name={personalName} component={PersonalScreen}/>
+            <Tab.Screen name={personalName} component={PersonalScreen} />
+            <Tab.Screen name={chatName} component={ChatScreen} />
             </Tab.Navigator>
         </NavigationContainer>
     );
