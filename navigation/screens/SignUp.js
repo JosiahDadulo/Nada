@@ -1,15 +1,13 @@
-import React from 'react';
-import {SectionList, StyleSheet, View, Text, TouchableOpacity, Button, Title} from 'react-native';
+import React, {useState}from 'react';
+import {ScrollView, SafeAreaView, StyleSheet, View, Text, TouchableOpacity, Button, Sele} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import {Audio} from 'expo-av';
+import {Audio} from 'expo-av'
+import { NavigationContainer } from '@react-navigation/native';
 
-import MainContainer from '../MainContainer';
-import { elementsThatOverlapOffsets } from 'react-native/Libraries/Lists/VirtualizeUtils';
+import activities from './Activities';
+import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
 
-
-let recording = new Audio.recording();
-
-const Login = () => {
+export default function Login ({ navigation }){
     const [recording, setRecording] = React.useState();
     const [recordings, setRecordings] = React.useState([]);
     const [message, setMessage] = React.useState("");
@@ -71,66 +69,47 @@ const Login = () => {
         })
     }
     return(
-
         <View>
+            <ScrollView>
             <Text style={styles.title}> Nada Sign Up</Text>
+            
+            <Text style={styles.heading}>First Name</Text>
             <TextInput
                     style={styles.input}
-                    placeholder="First Name"
-                    keyboardType="text"
-            />
+                    placeholder="First Name"            />
+            <Text style={styles.heading}>Last Name</Text>
             <TextInput
                     style={styles.input}
                     placeholder="Last Name"
-                    keyboardType="text"
             />
+            <Text style={styles.heading}>Bio: Tell us a little bit about yourself.</Text>
             <TextInput
                     style={styles.input}
                     placeholder="Bio"
-                    keyboardType="text"
             />
-            <Text>{message}</Text>
+            <Text style={styles.heading}>Audio Prompt</Text>
            <Button
            title={recording ? 'Stop Recording' : 'Start Recording'} 
            onPress={()=> (recording ? stopRecording() : startRecording())}
            />
            {getRecordingLines()}
-
-            <TouchableOpacity
-            style={styles.button}>
-                    <Text>Add Activity</Text>
-            </TouchableOpacity>
             <TouchableOpacity
             style={styles.button}>
                     <Text>Profile Image</Text>
-            </TouchableOpacity><TouchableOpacity
-            style={styles.button}>
-                    <Text>Sign Up</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+            style={styles.submit}
+            onPress={()=>navigation.navigate("Activities")}
+             >
+                    <Text>Activities</Text>
+            </TouchableOpacity>
+            </ScrollView>
         </View>
+        
         
     )
 }
 
-
-const returnList =  () => {
-    return(
-        <View>
- <SectionList
-            sections={[
-            {title: 'D', data: ['Devin', 'Dan', 'Dominic']},
-            {title: 'J', data: ['Jackson', 'James', 'Jillian', 'Jimmy', 'Joel', 'John', 'Julie']},
-             ]}
-             renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
-             renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
-             keyExtractor={(item, index) => index}
-       />
-        </View>
-       
-    )
-}
-
-export default Login;
  
 const styles = StyleSheet.create({
     title: {
@@ -138,13 +117,17 @@ const styles = StyleSheet.create({
         padding: 12,
         fontSize: 30,
         fontWeight: "bold"
-        
+    },
+    heading: {
+        textAlign: 'center',
+        padding: 5,
+        fontSize: 15,
     },
     input: {
         height: 40,
         margin: 12,
         borderWidth: 1,
-        padding: 10,
+        padding: 0,
         borderColor: '#87CEEE'
       },
     prompt: {
@@ -152,7 +135,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        padding: 10,
+        padding: 0,
         borderRadius: 4,
         elevation: 3,
         backgroundColor: '#87CEEE', 
@@ -170,5 +153,15 @@ const styles = StyleSheet.create({
     },
     button: {
         margin: 16,
+    },
+    submit: {
+        alignItems: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: '#87CEEE', 
+        textAlign: 'center',        
+        height: 50, 
     }
 })

@@ -5,7 +5,7 @@ import { TextInput } from 'react-native-gesture-handler';
 
 
 
-const PhoneNumber = () => {
+export default function PhoneNumber({navigation}){
 
     return(
         <View>
@@ -15,7 +15,8 @@ const PhoneNumber = () => {
         placeholder="Phone Number"
         keyboardType="numeric"/>
             <TouchableOpacity
-            style={styles.submit}>
+            style={styles.submit}
+            onPress={()=>navigation.navigate("SignUp")}>
                     <Text>Submit Phone Number</Text>
             </TouchableOpacity>
         </View>
@@ -23,7 +24,6 @@ const PhoneNumber = () => {
     )
 }
 
-export default PhoneNumber;
  
 const styles = StyleSheet.create({
     title: {
