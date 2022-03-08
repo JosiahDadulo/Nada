@@ -15,7 +15,7 @@ export default () =>{
       <Stack.Screen name ="Phone Number" component={PhoneNumber}/>
       <Stack.Screen name ="SignUp" component={Signup} />
       <Stack.Screen name ="Activities" component={Activities}/>
-      <Stack.Screen name ="Home" component={MainContainer} />
+      <Stack.Screen name ="Home" component={MainContainer} options={{headerShown: false, headerLeft: false }}/>
       </Stack.Navigator>
     </NavigationContainer>
     )
