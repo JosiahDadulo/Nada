@@ -17,7 +17,6 @@ const items = [
     {id: 10, name: 'Studying'},
     {id: 11, name: 'Driving'},
     {id: 12, name: 'Music'},
-
   ];
 
 export default function Activities({navigation}) {

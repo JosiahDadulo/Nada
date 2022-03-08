@@ -5,7 +5,6 @@ import {createStackNavigator} from '@react-navigation/stack'
 import Signup from "./navigation/screens/SignUp";
 import Activities from "./navigation/screens/Activities";
 import PhoneNumber from "./navigation/screens/PhoneNumber"
-import { ScreenStackHeaderLeftView } from 'react-native-screens';
 
 const Stack = createStackNavigator();
 

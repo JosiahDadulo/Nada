@@ -1,73 +1,25 @@
 import React, {useState}from 'react';
-import {ScrollView, SafeAreaView, StyleSheet, View, Text, TouchableOpacity, Button, Sele} from 'react-native';
+import {ScrollView, StyleSheet, View, Text, TouchableOpacity, Button} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import {Audio} from 'expo-av'
-import { NavigationContainer } from '@react-navigation/native';
-
-import activities from './Activities';
-import { throwIfAudioIsDisabled } from 'expo-av/build/Audio/AudioAvailability';
+import * as ImagePicker from 'expo-image-picker';
 
 export default function Login ({ navigation }){
-    const [recording, setRecording] = React.useState();
-    const [recordings, setRecordings] = React.useState([]);
-    const [message, setMessage] = React.useState("");
-
-    async function startRecording(){
-        try{
-            const permission = await Audio.requestPermissionsAsync();
-
-            if(permission.status === "granted"){
-                await Audio.setAudioModeAsync({
-                    allowedRecordingIOS: true,
-                    playsInSilentModeIOS: true
-                });
-                const {recording} = await Audio.Recording.createAsync(
-                    Audio.RECORDING_OPTIONS_PRESET_HIGH_QUALITY
-                );
-
-                setRecording(recording);
-            } else{
-                setMessage("Please grant permission to app to access microphone")
-            }
-        } catch(err){
-            console.error('Failed to start recording', err)
+    const [image, setImage] = useState(null);
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        console.log(result);
+    
+        if (!result.cancelled) {
+          setImage(result.uri);
         }
-    }
-
-    async function stopRecording(){
-        setRecording(undefined);
-        await recording.stopRecording();
-
-        let updateRecordings = [...recordings];
-        const {sound, status} = await recording.createNewLoadedSoundAsync();
-        updateRecordings.push({
-            sound: sound,
-            duration: getDurationFormatted(status.durationMillis),
-            file: recording.getURI()
-        })
-
-        setRecording(updateRecordings);
-    }
-
-    function getDurationFormatted(millis){
-        console.log(millis)
-        const minutes = millis/ 1000 / 60;
-        const minutesDisplay = Math.floor(minutes);
-        const seconds = Math.round((minutes - minutesDisplay)* 60);
-        const secondDisplay = seconds < 10 ? `0${seconds}` : seconds;
-        return    `${minutesDisplay}:${secondDisplay}`;
-    }
-
-    function getRecordingLines(){
-        return recordings.map((recordingLine, index) => {
-            return (
-                <View key={index} style={styles.row}>
-                    <Text style={styles.fill}> Recording {index + 1} - {recordingLine.duration} </Text>
-                    <Button style={styles.button} onPress={() => recordingLine.sound.replayAsync()} title="Play"></Button>
-                </View>
-            );
-        })
-    }
+      };
     return(
         <View>
             <ScrollView>
@@ -87,16 +39,9 @@ export default function Login ({ navigation }){
                     style={styles.input}
                     placeholder="Bio"
             />
-            <Text style={styles.heading}>Audio Prompt</Text>
-           <Button
-           title={recording ? 'Stop Recording' : 'Start Recording'} 
-           onPress={()=> (recording ? stopRecording() : startRecording())}
-           />
-           {getRecordingLines()}
-            <TouchableOpacity
-            style={styles.button}>
-                    <Text>Profile Image</Text>
-            </TouchableOpacity>
+            <Text style={styles.heading}>Profile Image</Text>
+            <Button title="Pick Profile Image" style={styles.button} onPress={pickImage} />
+      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />} 
             <TouchableOpacity
             style={styles.submit}
             onPress={()=>navigation.navigate("Activities")}
@@ -135,7 +80,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        padding: 0,
+        padding: 10,
         borderRadius: 4,
         elevation: 3,
         backgroundColor: '#87CEEE', 
