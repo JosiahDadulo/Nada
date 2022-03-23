@@ -1,10 +1,21 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
+import {StyleSheet, View, ScrollView} from 'react-native';
+import LikeCard from "../components/LikeCard.js";
 
 export default function LikesScreen({navigation}){
     return(
-        <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text onPress={()=> alert('This is the Winks and Hand Waves Page.')} style={{fontSize: 26, fontWeight: 'bold'}}> Reactions Screen</Text>
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+            <ScrollView>
+                <LikeCard></LikeCard>
+                <LikeCard></LikeCard>
+                <LikeCard></LikeCard>
+                <LikeCard></LikeCard>
+            </ScrollView>
+            
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    
+});
