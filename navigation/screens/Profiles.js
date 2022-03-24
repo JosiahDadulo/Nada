@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     wink:{
         backgroundColor: '#ffff00',
         bottom: -40,
-        width: deviceWidth -250,
+        width: deviceWidth -220,
         borderRadius: radius,
         height: 55,
         textAlign: 'center'
