@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react
 import exampleImage from '../../assets/vd.jpg'
 import Activities from '../screens/Activities';
 
-const LikeCard = () => {
+function LikeCard(){
     return(
         <View style={styles.cardContainer}>
             <Image style={styles.imageStyle} source={exampleImage}/>

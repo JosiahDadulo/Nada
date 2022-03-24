@@ -1,13 +1,13 @@
 import React from 'react'
 import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native'
 import exampleImage from '../../assets/paulwalker.jpg'
-import Activities from '../screens/Activities';
+var nameAge = "Paul Walker, 21"
 
 const Card1 = () => {
     return(
         <View style={styles.cardContainer}>
             <Image style={styles.imageStyle} source={exampleImage}/>
-            <Text style={styles.name}>Paul Walker, 21</Text>
+            <Text style={styles.name}>{nameAge}</Text>
         </View>
     );
 };
@@ -29,13 +29,10 @@ const styles = StyleSheet.create({
     },
     name: {
         textAlign: 'center',
-        width:150,
         fontSize: 20, 
         fontWeight: 'bold',
-        left: 175,
-        bottom: 25,
-        backgroundColor: 'white',
-        borderRadius: 20
+        left: 10,
+        bottom: 35,
     },
 });
 export default Card1;
