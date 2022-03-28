@@ -1,10 +1,12 @@
 import * as React from 'react';
-import {View, Text} from 'react-native';
-
+import {View, ScrollView} from 'react-native';
+import ChatCard from "../components/ChartCard"
 export default function ProfilesScreen({navigation}){
     return(
         <View style = {{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-            <Text onPress={()=> alert('This is the Profiles Page.')} style={{fontSize: 26, fontWeight: 'bold'}}>Chat Screen</Text>
+            <ScrollView>
+            <ChatCard></ChatCard>
+            </ScrollView>
         </View>
     );
 }
