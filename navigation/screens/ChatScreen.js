@@ -3,14 +3,12 @@ import {StyleSheet, View, Text, Touchable} from 'react-native';
 
 
 
-const ChatScreen = () => {
+export default function ChatScreen({navigation}){
     return(
         <View>
-            <Text> Chat Screen</Text>
+            <Text>Chat Screen</Text>
         </View>
     )
 }
-
-export default ChatScreen
 
 const styles = StyleSheet.create({})

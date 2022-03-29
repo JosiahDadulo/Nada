@@ -1,9 +1,8 @@
 import React from 'react'
 import {View, Text, StyleSheet, Dimensions, Image, TouchableOpacity} from 'react-native'
 import exampleImage from '../../assets/vd.jpg'
-import Activities from '../screens/Activities';
 
-function ChatCard({navigation}){
+function ChatCard({ navigation }){
     return(
         <View style={styles.cardContainer}>
             <TouchableOpacity onPress={()=>navigation.navigate("ChatScreen")}>
